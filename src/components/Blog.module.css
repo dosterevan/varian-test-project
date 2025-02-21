@@ -1,0 +1,73 @@
+/* BlogItem.module.css */
+.blogItem {
+  /* border: 1px solid #ddd; */
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; /* Adjust the spacing between items if needed */
+  margin-left: 20px;
+  color: black;
+  width: 90%; /* Ensure each item takes full width */
+}
+
+.link {
+  display: flex;
+  flex-direction: row;
+  text-decoration: none;
+  color: inherit;
+  width: 100%; /* Ensure the link takes full width */
+}
+
+.imageWrapper {
+  margin-right: 20px; /* Adjust the spacing between image and text if needed */
+}
+
+.textWrapper {
+  flex: 1;
+}
+
+.title {
+  font-size: 2em; /* Adjust the size to your preference */
+  margin: 0; /* Remove default margin */
+}
+
+.date {
+  font-size: 1.5em; /* Adjust the size to your preference */
+  color: gray; /* Optional: Change the color if needed */
+}
+
+.readMore {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Media query for screens below 640px */
+@media (max-width: 640px) {
+  .blogItem {
+    flex-direction: column; /* Stack items vertically */
+    align-items: flex-start; /* Align items to the start */
+  }
+
+  .imageWrapper {
+    margin-right: 0; /* Remove right margin */
+    width: 100%; /* Ensure image takes full width */
+  }
+
+  .textWrapper {
+    width: 100%; /* Ensure text takes full width */
+  }
+
+  .link {
+    flex-direction: column; /* Stack items vertically */
+  }
+
+  .title {
+    font-size: 1.5em; /* Adjust the size to your preference */
+  }
+
+  .date {
+    font-size: 1.2em; /* Adjust the size to your preference */
+  }
+}
