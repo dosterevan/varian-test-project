@@ -2,9 +2,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-If the npm installer is not installed on your machine, follow the [`directions here`](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-
-Second, install necessary dependencies - this may take a minute:
+First, confirm your package installer and install necessary dependencies - this may take a minute:
 ```bash
 npm install
 # or
