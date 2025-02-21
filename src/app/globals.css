@@ -56,6 +56,10 @@ button {
   border-radius: 8px;
 }
 
+button:hover {
+  background: #005bb5; 
+  border-color: #005bb5; 
+}
 
 .link {
   display: flex;
@@ -64,7 +68,7 @@ button {
 }
 
 .imageWrapper {
-  margin-right: 20px; /* Adjust the spacing between image and text if needed */
+  margin-right: 20px; 
 }
 
 .textWrapper {

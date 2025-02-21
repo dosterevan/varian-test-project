@@ -1,10 +1,15 @@
-// BlogItem.js
 "use client";
 
 import Image from "next/image";
 import styles from "./Blog.module.css";
-import parse from 'html-react-parser';
-import { useTranslation } from 'react-i18next';
+import parse from "html-react-parser";
+// import { useTranslation } from "react-i18next";
+
+// Utility function to strip HTML tags
+const stripHtmlTags = (html: string) => {
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  return doc.body.textContent || "";
+};
 
 interface BlogItemProps {
   title: string;
@@ -14,16 +19,23 @@ interface BlogItemProps {
   imageId: string;
 }
 
-const truncateHtml = (html: string, maxWords: number) => {
-  const words = html.split(" ");
+const truncateText = (text: string, maxWords: number) => {
+  const words = text.split(" ");
   if (words.length > maxWords) {
     return words.slice(0, maxWords).join(" ") + "...";
   }
-  return html;
+  return text;
 };
 
-const BlogItem: React.FC<BlogItemProps> = ({ title, date, description, link, imageId }) => {
-  const { t } = useTranslation();
+
+const BlogItem: React.FC<BlogItemProps> = ({
+  title,
+  date,
+  description,
+  link,
+  imageId,
+}) => {
+  // const { t } = useTranslation();
   const BASE_URL = "https://www.varian.com"; // Base URL
 
   // Check if the link is a relative URL, and if so, prepend the BASE_URL
@@ -33,7 +45,7 @@ const BlogItem: React.FC<BlogItemProps> = ({ title, date, description, link, ima
   const imageUrl = `https://varian.widen.net/content/${imageId}/webp?w=500&h=300&crop=true`;
 
   // Truncate HTML description
-  const truncatedDescription = truncateHtml(description, 40);
+  const plainDescription = truncateText(stripHtmlTags(description), 60);
 
   return (
     <div className={styles.blogItem}>
@@ -45,12 +57,9 @@ const BlogItem: React.FC<BlogItemProps> = ({ title, date, description, link, ima
           <h1 className={styles.title}>{title}</h1>
           <p className={styles.date}>{date}</p>
           {/* Render truncated HTML content */}
-          <div>{parse(truncatedDescription)}</div>
+          <div>{parse(plainDescription)}</div>
+          <p className={styles.readMore}>Read More</p>
         </div>
-      </a>
-      <br />
-      <a href={fullLink} target="_blank" rel="noopener noreferrer" className={styles.readMore}>
-        {t('Read More')}
       </a>
     </div>
   );

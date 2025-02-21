@@ -1,51 +1,37 @@
-"use client";
-
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { fetchBlogs } from "../utils/api";
 import BlogItem from "./BlogItem";
-import styles from "./Blog.module.css"; 
-import { useTranslation } from 'react-i18next';
+import styles from "./Blog.module.css"; // Import CSS for BlogList
 
+// Define the expected prop types for BlogList
 interface BlogListProps {
   locale: string;
 }
 
 const BlogList: React.FC<BlogListProps> = ({ locale }) => {
   const [blogs, setBlogs] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const { t } = useTranslation();
 
   useEffect(() => {
-    setIsLoading(true);
-    fetchBlogs(locale, 3)
-      .then(blogs => {
-        setBlogs(blogs);
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setIsLoading(false);
-      });
+    fetchBlogs(locale, 3).then(setBlogs); // Fetch blogs based on current locale
   }, [locale]);
 
-  if (isLoading) {
-    return <div className={styles.loading}>{t('loading')}</div>;
-  }
-
   return (
-    <div className={styles.blogList}>
+    <div className={styles.BlogList}>
       {blogs.length > 0 ? (
-        blogs.map((blog: any) => (
-          <BlogItem
-            key={blog.nid}
-            title={blog.title}
-            date={blog.date_release}
-            link={blog.node_alias}
-            description={blog.description}
-            imageId={blog.widen_image_id || null}
-          />
+        blogs.map((blog: any, index) => (
+          <React.Fragment key={blog.nid}>
+            <BlogItem
+              title={blog.title}
+              date={blog.date_release} // Pass the date prop
+              description={blog.description}
+              link={blog.node_alias}
+              imageId={blog.widen_image_id || null} // Check if imageId exists
+            />
+            {index !== blogs.length - 1 && <hr className={styles.divider} />}
+          </React.Fragment>
         ))
       ) : (
-        <p>{t('noBlogsFound')}</p>
+        <p>Loading blogs...</p>
       )}
     </div>
   );
